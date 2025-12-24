@@ -105,6 +105,7 @@ impl TaskTracker {
                     if let Some(task) = content.get_mut(&id) {
                         task.update_description(d);
                         Self::write(&content);
+                        println!("Successfully Update the Task Id:{} ", id.0)
                     } else {
                         println!("The Provided Id: {} is not valid", id.0);
                     }
@@ -144,13 +145,16 @@ Try adding some tasks using: add Subcommand."
 
     pub fn list_by_status(status: Status) {
         let content = Self::read().expect("Failed to Get the Tasks");
+        let mut counter = 0;
         if content.iter().count() > 0 {
             for (key, value) in content.iter() {
-                if status == value.status {
-                    println!("Id: {} Description: {}", key.0, value.description);
-                } else {
-                    println!("No Task to list related to: {:?}", status);
+                if value.status == status {
+                    counter += 1;
+                    println!("Id: {}, Description: {}", key.0, value.description);
                 }
+            }
+            if counter == 0 {
+                println!("No Task related to the Status: {:?}", status);
             }
         } else {
             println!(
@@ -165,7 +169,7 @@ Try adding some tasks using: add Subcommand."
         let mut content = Self::read().expect("Failed to Get the Tasks");
         if content.iter().count() > 0 {
             if content.contains_key(&id) {
-                println!("Removing Task with Id: {}", id.0);
+                println!("Removing Task Id: {}", id.0);
                 content.remove(&id);
                 Self::write(&content);
             } else {

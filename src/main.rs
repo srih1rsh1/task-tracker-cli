@@ -1,6 +1,6 @@
 mod task_tracker;
 
-use std::{env,io};
+use std::{env, io};
 
 use crate::task_tracker::{Status, TaskTracker, Update};
 
@@ -112,31 +112,20 @@ Use --help or -h to find the allowed commands.";
                 }
                 "mark-in-progress" => {
                     let id: u128 = match argument.parse() {
-                        Ok(s) => s,
+                        Ok(n) => n,
                         Err(_) => {
-                            eprintln!("error: second argument not an string");
+                            eprintln!("error: second argument not a number");
                             return Ok(());
                         }
                     };
                     TaskTracker::update(id, Update::Status(Status::InProgress));
                     Ok(())
                 }
-                "mark-Done" => {
-                    let id: u128 = match argument.parse() {
-                        Ok(s) => s,
-                        Err(_) => {
-                            eprintln!("error: second argument not an string");
-                            return Ok(());
-                        }
-                    };
-                    TaskTracker::update(id, Update::Status(Status::Done));
-                    Ok(())
-                }
                 "mark-done" => {
                     let id: u128 = match argument.parse() {
-                        Ok(s) => s,
+                        Ok(n) => n,
                         Err(_) => {
-                            eprintln!("error: second argument not an string");
+                            eprintln!("error: second argument not a number");
                             return Ok(());
                         }
                     };
@@ -156,9 +145,9 @@ Use --help or -h to find the allowed commands.";
                 }
                 "delete" => {
                     let id: u128 = match argument.parse() {
-                        Ok(s) => s,
+                        Ok(n) => n,
                         Err(_) => {
-                            eprintln!("error: second argument not an string");
+                            eprintln!("error: second argument not a number");
                             return Ok(());
                         }
                     };
@@ -169,7 +158,7 @@ Use --help or -h to find the allowed commands.";
                 _ => {
                     eprintln!("Error: {}", unknown_command);
                     Ok(())
-                },
+                }
             }
         }
         4 => {
@@ -181,7 +170,7 @@ Use --help or -h to find the allowed commands.";
                     let id: u128 = match id.parse() {
                         Ok(n) => n,
                         Err(_) => {
-                            eprintln!("error: second argument not an integer");
+                            eprintln!("error: second argument not a number");
                             return Ok(());
                         }
                     };
@@ -199,12 +188,12 @@ Use --help or -h to find the allowed commands.";
                 _ => {
                     eprintln!("Error: {}", unknown_command);
                     Ok(())
-                },
+                }
             }
         }
         _ => {
-                    eprintln!("Error: {}", unknown_command);
-                    Ok(())
-                },
+            eprintln!("Error: {}", unknown_command);
+            Ok(())
+        }
     }
 }
