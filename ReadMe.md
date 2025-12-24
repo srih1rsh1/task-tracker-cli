@@ -34,3 +34,7 @@ cargo build --release
 ./target/release/task-cli
 
 ```
+
+## Motivation
+
+- https://roadmap.sh/projects/task-tracker
