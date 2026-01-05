@@ -96,11 +96,14 @@ impl TaskTracker {
         Ok(id.0)
     }
 
-    pub fn update(id: u128, entry_name: Update) {
+    /// This function is used to update the either the Status or the Description
+    /// of the Task. The inputs which it will expect for are the Id and entry_type
+    /// For entry Type use the enum Update.
+    pub fn update(id: u128, entry_type: Update) {
         let mut content = Self::read().expect("Failed to Get the Tasks");
         let id = Id::new(id);
         if content.iter().count() > 0 {
-            match entry_name {
+            match entry_type {
                 Update::Description(d) => {
                     if let Some(task) = content.get_mut(&id) {
                         task.update_description(d);

@@ -5,8 +5,9 @@ use std::{env, io};
 use crate::task_tracker::{Status, TaskTracker, Update};
 
 fn main() -> io::Result<()> {
-    //Application StartUp
+    // Application StartUp
     let _ = TaskTracker::builder()?;
+    // Collects the input Arguments from the terminal.
     let args: Vec<String> = env::args().collect();
 
     let application_info = "
@@ -37,7 +38,6 @@ Use --help or -h to find the allowed commands.";
 
     match args.len() {
         1 => {
-            // let app = TaskTracker::builder()?;
             println!("{}", application_info);
             Ok(())
         }
@@ -181,7 +181,7 @@ Use --help or -h to find the allowed commands.";
                             return Ok(());
                         }
                     };
-                    TaskTracker::update(id, task_tracker::Update::Description(description));
+                    TaskTracker::update(id, Update::Description(description));
 
                     Ok(())
                 }
